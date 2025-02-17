@@ -1,0 +1,16 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <h3 style="text-align: center;">TODO APP</h3>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i class="material-icons">menu</i>
+    </button>
+    <br>
+    <ul>
+      <li routerLink="/"><i class="material-icons">home</i> <span *ngIf="!isCollapsed">Home</span></li>
+      <li routerLink="/about"><i class="material-icons">info</i> <span *ngIf="!isCollapsed">About</span></li>
+      <li routerLink="/contact"><i class="material-icons">phone</i> <span *ngIf="!isCollapsed">Contact</span></li>
+      <li routerLink="/settings"><i class="material-icons">settings</i> <span *ngIf="!isCollapsed">Settings</span></li>
+    </ul>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>

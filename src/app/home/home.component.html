@@ -1,0 +1,70 @@
+<h1>Welcome to TODO STYLE TRELLO</h1>
+
+<div cdkDropListGroup class="container">
+  <!-- PENDING TASKS -->
+  <mat-card class="task-card">
+    <mat-card-title>Pending</mat-card-title>
+    <div cdkDropList [cdkDropListData]="pending" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let item of pending" class="example-box" cdkDrag>
+         <!-- Show Input if Editing, Otherwise Show Task -->
+         <ng-container *ngIf="editingTodoId !== item.id; else editField">
+            {{ item.todo }}
+          </ng-container>
+          <ng-template #editField>
+            <input [(ngModel)]="item.todo" placeholder="Edit task..." />
+          </ng-template>
+          <div class="button-group">
+          <!-- Edit Button -->
+          <button mat-icon-button color="accent" (click)="startEditing(item)">
+            <mat-icon>edit</mat-icon>
+          </button>
+  
+          <!-- Save Button -->
+          <button mat-icon-button color="primary" *ngIf="editingTodoId === item.id" (click)="updateTodo(item)">
+            <mat-icon>save</mat-icon>
+          </button>
+  
+          <!-- Delete Button -->
+          <button mat-icon-button color="warn" (click)="deleteTodo(item, pending)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          </div>
+        <!-- {{ item.todo }}
+        <button mat-icon-button color="warn" (click)="deleteTodo(item, pending)">
+          <mat-icon>delete</mat-icon>
+        </button> -->
+      </div>
+    </div>
+    <button mat-button color="primary" (click)="toggleAddInput('pending')">Create To-Do</button>
+    <div *ngIf="addingTodo.pending">
+      <input [(ngModel)]="newTodoText" placeholder="New task..." />
+      <button mat-button color="accent" (click)="addTodo()">Add</button>
+    </div>
+  </mat-card>
+
+  <!-- IN PROGRESS TASKS -->
+  <mat-card class="task-card">
+    <mat-card-title>In Progress</mat-card-title>
+    <div cdkDropList [cdkDropListData]="inProgress" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let item of inProgress" class="example-box" cdkDrag>
+        {{ item.todo }}
+        <button mat-icon-button color="warn" (click)="deleteTodo(item, inProgress)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- COMPLETED TASKS -->
+  <mat-card class="task-card">
+    <mat-card-title>Completed</mat-card-title>
+    <div cdkDropList [cdkDropListData]="completed" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let item of completed" class="example-box" cdkDrag>
+        {{ item.todo }}
+        <button mat-icon-button color="warn" (click)="deleteTodo(item, completed)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>
